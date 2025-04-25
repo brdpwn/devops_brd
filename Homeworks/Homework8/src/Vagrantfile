@@ -1,0 +1,20 @@
+Vagrant.configure("2") do |config|
+  # Використовуємо образ Ubuntu 22.04 (jammy64)
+  config.vm.box = "ubuntu/jammy64"
+
+  config.vm.network "public_network"
+
+  # Налаштування порту для nginx (порт 82)
+  config.vm.provision "shell", inline: <<-SHELL
+    # Оновлення та установка nginx
+    sudo apt update
+    sudo apt install -y nginx
+
+    # Заміна порту за допомогою sed
+    sudo sed -i 's/listen 80 default_server;/listen 82 default_server;/' /etc/nginx/sites-available/default
+
+    # Перезапуск nginx
+    sudo systemctl restart nginx
+  SHELL
+end
+
