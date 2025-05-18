@@ -1,0 +1,14 @@
+Installed Java 17 manually due to Maven build failure with Java 11:
+sudo apt install openjdk-17-jdk -y
+
+Rebuilt the PetClinic application manually inside the app VM:
+./mvnw clean package
+
+Verified Java version and ensured JDK was correctly installed:
+java -version
+
+Connected from app_vm to MySQL on db_vm using:
+mysql -h 192.168.56.10 -u petuser -p
+
+Installed MySQL client manually on app_vm to support this test:
+sudo apt install mysql-client -y
