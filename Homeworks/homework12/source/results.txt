@@ -1,0 +1,126 @@
+{
+  "error": "No students found"
+}
+
+
+{
+  "age": "20",
+  "first_name": "Alice",
+  "id": "1",
+  "last_name": "Smith"
+}
+
+
+{
+  "age": "22",
+  "first_name": "Bob",
+  "id": "2",
+  "last_name": "Brown"
+}
+
+
+{
+  "age": "21",
+  "first_name": "Carol",
+  "id": "3",
+  "last_name": "Taylor"
+}
+
+
+[
+  {
+    "age": "20",
+    "first_name": "Alice",
+    "id": "1",
+    "last_name": "Smith"
+  },
+  {
+    "age": "22",
+    "first_name": "Bob",
+    "id": "2",
+    "last_name": "Brown"
+  },
+  {
+    "age": "21",
+    "first_name": "Carol",
+    "id": "3",
+    "last_name": "Taylor"
+  }
+]
+
+
+{
+  "age": "25",
+  "first_name": "Bob",
+  "id": "2",
+  "last_name": "Brown"
+}
+
+
+{
+  "age": "25",
+  "first_name": "Bob",
+  "id": "2",
+  "last_name": "Brown"
+}
+
+
+{
+  "age": "30",
+  "first_name": "Carla",
+  "id": "3",
+  "last_name": "Thompson"
+}
+
+
+{
+  "age": "30",
+  "first_name": "Carla",
+  "id": "3",
+  "last_name": "Thompson"
+}
+
+
+[
+  {
+    "age": "20",
+    "first_name": "Alice",
+    "id": "1",
+    "last_name": "Smith"
+  },
+  {
+    "age": "25",
+    "first_name": "Bob",
+    "id": "2",
+    "last_name": "Brown"
+  },
+  {
+    "age": "30",
+    "first_name": "Carla",
+    "id": "3",
+    "last_name": "Thompson"
+  }
+]
+
+
+{
+  "message": "Student with ID 1 deleted"
+}
+
+
+[
+  {
+    "age": "25",
+    "first_name": "Bob",
+    "id": "2",
+    "last_name": "Brown"
+  },
+  {
+    "age": "30",
+    "first_name": "Carla",
+    "id": "3",
+    "last_name": "Thompson"
+  }
+]
+
+
