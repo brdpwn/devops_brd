@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  jenkins-master:
+    build: ./jenkins
+    container_name: jenkins-master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins-net
+
+  jenkins-dind:
+    image: docker:dind
+    container_name: jenkins-dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - dind-storage:/var/lib/docker
+    networks:
+      - jenkins-net
+
+  jenkins-agent:
+    build: ./agent
+    container_name: jenkins-agent
+    depends_on:
+      - jenkins-dind
+    environment:
+      - DOCKER_HOST=tcp://jenkins-dind:2375
+    networks:
+      - jenkins-net
+
+volumes:
+  jenkins_home:
+  dind-storage:
+
+networks:
+  jenkins-net:
+version: '3.8'
+
+services:
+  jenkins-master:
+    build: ./jenkins
+    container_name: jenkins-master
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins-net
+
+  jenkins-dind:
+    image: docker:dind
+    container_name: jenkins-dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - dind-storage:/var/lib/docker
+    networks:
+      - jenkins-net
+
+  jenkins-agent:
+    build: ./agent
+    container_name: jenkins-agent
+    depends_on:
+      - jenkins-dind
+    environment:
+      - DOCKER_HOST=tcp://jenkins-dind:2375
+    networks:
+      - jenkins-net
+    command: ["-url", "http://jenkins-master:8080", "615bcc51f8dbd01b0d348e397fcffab7672e43508086081a7df6db84d260f0c5", "docker-agent"]
+
+volumes:
+  jenkins_home:
+  dind-storage:
+
+networks:
+  jenkins-net:
+
