@@ -1,0 +1,46 @@
+pipeline {
+    agent { label 'docker-agent' }
+
+    environment {
+        IMAGE_NAME = "brdpwns@gmail.com/devops_soft:test"
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/brdpwn/devops_soft.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    def result = sh(script: "docker run $IMAGE_NAME", returnStatus: true)
+                    if (result != 0) {
+                        echo 'Tests failed'
+                        currentBuild.result = 'FAILURE'
+                        error("Stopping pipeline")
+                    }
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh """
+                        echo \$PASS | docker login -u \$USER --password-stdin
+                        docker push $IMAGE_NAME
+                    """
+                }
+            }
+        }
+    }
+}
+
