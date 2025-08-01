@@ -7,15 +7,13 @@ pipeline {
 
     stages {
         stage('Build Docker Image') {
-    	    steps {
-        	script {
-           	    sh 'echo CURRENT DIR && pwd'
-                    sh 'echo CONTENTS && ls -la'
-                    sh 'echo TRYING TO BUILD DOCKER IMAGE...'
-                    sh 'docker build -t $IMAGE_NAME .'
-                    }
-                }
-            }
+  	    steps {
+    	        dir('Homeworks/jenkins-docker/devops_soft/forStep2') {
+    	            sh 'docker build -t $IMAGE_NAME .'
+        	}
+	    }
+	}
+
 
         stage('Run Tests') {
             steps {
