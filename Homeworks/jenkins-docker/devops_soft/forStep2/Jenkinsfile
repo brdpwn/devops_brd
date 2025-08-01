@@ -4,12 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = "brdpwns@gmail.com/devops_soft:test"
     }
-	stages {
-        stage('Clone') {
-            steps {
-                git credentialsId: 'github-devops-soft', url: 'https://github.com/brdpwn/devops_soft.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
