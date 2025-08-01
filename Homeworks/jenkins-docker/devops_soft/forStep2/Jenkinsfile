@@ -2,7 +2,7 @@ pipeline {
     agent { label 'docker-agent' }
 
     environment {
-        IMAGE_NAME = "brdpwns/devops_soft:test"
+        IMAGE_NAME = "brdpwn/devops_soft:test"
     }
 
     stages {
