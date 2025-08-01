@@ -7,10 +7,15 @@ pipeline {
 
     stages {
         stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t $IMAGE_NAME .'
+    	    steps {
+        	script {
+           	    sh 'echo CURRENT DIR && pwd'
+                    sh 'echo CONTENTS && ls -la'
+                    sh 'echo TRYING TO BUILD DOCKER IMAGE...'
+                    sh 'docker build -t $IMAGE_NAME .'
+                    }
+                }
             }
-        }
 
         stage('Run Tests') {
             steps {
