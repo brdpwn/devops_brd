@@ -18,11 +18,11 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    def result = sh(script: "docker run $IMAGE_NAME", returnStatus: true)
+                    def result = sh(script: "docker run --rm $IMAGE_NAME npm test", returnStatus: true)
                     if (result != 0) {
                         echo 'Tests failed'
-                        currentBuild.result = 'FAILURE'
-                        error("Stopping pipeline")
+                        currentBuild.result = '	FAILURE'
+            	        error("Stopping pipeline")
                     }
                 }
             }
