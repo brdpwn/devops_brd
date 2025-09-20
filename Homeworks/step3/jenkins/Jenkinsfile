@@ -1,0 +1,37 @@
+pipeline {
+  agent { label 'docker-worker' }
+  environment {
+    IMAGE = "brdpwn/demo:${env.BUILD_NUMBER}"
+  }
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+    stage('Build & Test') {
+      steps {
+        sh 'echo "Run tests here"'
+      }
+    }
+    stage('Docker Build') {
+      steps {
+        sh 'docker version'
+        sh 'docker build -t $IMAGE .'
+      }
+    }
+    stage('Docker Push (optional)') {
+      when { expression { return env.DOCKERHUB_USER && env.DOCKERHUB_TOKEN } }
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DU', passwordVariable: 'DP')]) {
+          sh '''
+            echo "$DP" | docker login -u "$DU" --password-stdin
+            docker push $IMAGE
+          '''
+        }
+      }
+    }
+  }
+  post {
+    always { sh 'docker image prune -f || true' }
+  }
+}
+
